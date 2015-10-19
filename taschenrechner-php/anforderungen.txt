@@ -8,3 +8,14 @@ Rechner Funktionen:
 	-Inverse einer Zahl angeben
 	-Klammern
 	-konnstanten(π, e)
+
+Benutzerführung:
+	-Bei eingabe von z.B. 1+1 wird einmal die Rechnug in Textform(1+1=2) und darüber als Rechnung dargestellt(fällt bei 1+1 weinger auf als z.B. bei: sqrt2(156/123)/2^3).
+	-Klammer sollen sich dem größenverhältnis der Rechung anpassen.
+	-Man kann alles in Textform notieren oder mit den knöppen eingeben.
+	-Es werden allgemine Rechen Gesetze angewendet.
+	-Sollte eine Rechung keinen Sinn ergeben(z.B. )/8b, ) wird ein "Syntax Error" im Textfeld ausgegeben.
+	-Sollte die Rechnung Mathematisch nicht lösbar sein (0/irgendwas) wird "Math Error" im Textfeld ausgegeben.
+	-Die Konnstanten π und e werden im Textfeld ausgeschrieben(Pi, e) und im Formelfeld dan als zeichen(π, e).
+	-Bei eingabe von im √x wird im Textfeld "sqrt2()" angezeigt im Formelfeld dan auch mit Wurtzelzeichen.
+	-Geteiltrechnugen werden im Formelfeld per Bruchstrich angezeigt.
