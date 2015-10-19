@@ -1,3 +1,4 @@
+
 Rechner Funktionen:
 	-Standard Rechenoperationen (+,-,*,/)
 	-Potenzen
