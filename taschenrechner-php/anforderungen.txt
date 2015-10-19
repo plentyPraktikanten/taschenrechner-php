@@ -1,0 +1,9 @@
+Rechner Funktionen:
+	-Standard Rechenoperationen (+,-,*,/)
+	-Potenzen
+	-wurtzel
+	-Fakultät
+	-Brüche
+	-Inverse einer Zahl angeben
+	-Klammern
+	-konnstanten(π, e)
