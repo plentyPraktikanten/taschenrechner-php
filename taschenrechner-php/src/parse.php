@@ -8,8 +8,6 @@
 
     class Parse {
 
-       //public $input;
-
         function multiexplode ($delimiters,$string) {
             $ready  = str_replace($delimiters,    $delimiters[0], $string);
             $launch = explode    ($delimiters[0], $ready);
@@ -36,6 +34,13 @@
             return $numbers;
         }
     }
+
+    if (issset($_POST['input'])){
+        $input = $_POST['input'];
+    }
+    echo $input;
+
+
 ?>
 
 /*function parse($input) {

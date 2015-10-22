@@ -9,12 +9,24 @@
     //floatval()  <- könnte noch nützlich sein
 
     class Logic {
-        public $numbers;
-        public $operations;
+        private $numbers;
+        private $operations;
 
-        function abc (){
-            $obj1 = new Parse();
-            return $obj1->parseOperations();
+        //Getter & Setter
+        public function setNumber($value){
+            $this->numbers = $value;
+        }
+
+        public function getNumber(){
+            return $this->number;
+        }
+
+        public function setOperations($value){
+            $this->operations = $value;
+        }
+
+        public function getOperations(){
+            return $this->operations;
         }
 
         public static function getInstance(){
@@ -25,18 +37,18 @@
         }
     }
 
-    $result     = 0.00;
+/*    $result     = 0.00;
     $i          = 0;
     $c          = 0;
 
-//    foreach($operations as $a){
-//        if($a == "") {
-//            unset($operations[$i]);
-//            array_values($operations);
-//        }
-//
-//        $i++;
-//    }
+    foreach($operations as $a){
+        if($a == "") {
+            unset($operations[$i]);
+            array_values($operations);
+        }
+
+        $i++;
+    }
 
     $i = 0;
     while (sizeof($operations) >= $c){
@@ -58,5 +70,5 @@
     echo $result; // Is not jet a float !!!!
     echo '<br>';
 
-    var_dump($numbers, $operations);
+    var_dump($numbers, $operations);*/
 ?>
