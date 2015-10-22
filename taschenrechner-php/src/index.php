@@ -6,6 +6,6 @@
  * Time: 14:57
  */
 
-    echo '<form action="logic.php" method="post"> <input type="text" name="input"> <input type="submit" value="="> </form>';
+    echo '<form action="parse.php" method="post"> <input type="text" name="input"> <input type="submit" value="="> </form>';
     //include "logic.php";
 ?>

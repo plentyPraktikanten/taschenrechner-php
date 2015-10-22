@@ -5,32 +5,54 @@
  * Date: 20.10.15
  * Time: 14:35
  */
-    function multiexplode ($delimiters,$string) {
-        $ready  = str_replace($delimiters,    $delimiters[0], $string);
-        $launch = explode    ($delimiters[0], $ready);
-        return  $launch;
-    }
 
     //floatval()  <- könnte noch nützlich sein
 
-    if(isset($_POST['input'])){
-        $input = $_POST['input'];
+    class Logic {
+        public $numbers;
+        public $operations;
+
+        function abc (){
+            $obj1 = new Parse();
+            return $obj1->parseOperations();
+        }
+
+        public static function getInstance(){
+            if(!self::$instance){
+                self::$instance = new self();
+            }
+            return self::$instance;
+        }
     }
 
-
-    $numbers    = multiexplode(array("(", ")", "+", "-", "*", "/", "sqrt2", "sqrt3"), $input);
-    $operations = multiexplode(array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0"), $input);
-
     $result     = 0.00;
+    $i          = 0;
+    $c          = 0;
 
-    foreach($operations as $a){
-        if($a == "+"){
-            $result = $numbers['0'] + $numbers['1'];
+//    foreach($operations as $a){
+//        if($a == "") {
+//            unset($operations[$i]);
+//            array_values($operations);
+//        }
+//
+//        $i++;
+//    }
+
+    $i = 0;
+    while (sizeof($operations) >= $c){
+        foreach($operations as $a) {
+            if ($a == "+") {
+                //$result = $numbers['0'] + $numbers['1'];
+
+
+            }
+
+            if ($a == "-") { $result = $numbers['0'] - $numbers['1']; }
+
+            $i++;
         }
 
-        if($a == "-"){
-            $result = $numbers['0'] - $numbers['1'];
-        }
+        $c++;
     }
 
     echo $result; // Is not jet a float !!!!
