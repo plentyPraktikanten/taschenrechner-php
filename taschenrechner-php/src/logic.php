@@ -11,6 +11,7 @@
     class Logic {
         private $numbers;
         private $operations;
+        private static $instance = null;
 
         //Getter & Setter
         public function setNumber($value){
@@ -27,10 +28,6 @@
 
         public function getOperations(){
             return $this->operations;
-        }
-
-        public function getVarInstance(){
-            return $this->instance;
         }
 
         public static function getInstance(){
