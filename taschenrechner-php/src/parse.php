@@ -5,37 +5,29 @@
  * Date: 22.10.15
  * Time: 11:09
  */
-
+    require_once('logic.php');
 
     function multiexplode ($delimiters,$string) {
         $ready  = str_replace($delimiters,    $delimiters[0], $string);
         $launch = explode    ($delimiters[0], $ready);
         return  $launch;
     }
-        /*function parseOperations(){
-            if (issset($_POST['input'])){
-                $input = $_POST['input'];
+
+    //do not work as it should
+    function getCoutOfCalc($operations){
+        $i = 0;
+        foreach($operations as $key=>$values){
+            if($values == "+"){
+                $i++;
             }
-
-            $operations = $this->multiexplode(array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0"), $input);
-
-            return $operations;
         }
-
-        function parseNumbers($input) {
-            if (isset($_POST['input'])) {
-                $input = $_POST['input'];
-            }
-
-            $numbers = $this->multiexplode(array("(", ")", "+", "-", "*", "/", "sqrt2", "sqrt3"), $input);
-
-            return $numbers;
-        }*/
+        return $i+1;
+    }
 
     if (isset($_POST['input'])){
         $input = $_POST['input'];
     }
-    echo $input, "<br>";
+    echo $input;
 
     $numbers    = multiexplode(array("(", ")", "+", "-", "*", "/", "sqrt2", "sqrt3"), $input);
     $operations = multiexplode(array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0"), $input);
@@ -49,40 +41,22 @@
         $i++;
     }
 
-    $a = $numbers[0];
-    $b = $numbers[1];
+//    $operator = $operations[3];
+    foreach($operations as $key=>$value) {
+        if ($value == $operations[$key--]) {
+            switch ($value) {
+                case "+": {
+                    $result = Logic::getInstance()->add($numbers, getCoutofCalc($operations));
+                } break;
 
-    $operator = $operations[1];
-
-    switch($operator){
-        case "+":
-        {
-            $result = Logic::getInstance()->add($a, $b);
-//            echo $result;
-        } break;
-
-        default:
-        {
-            echo "gäht nischt";
+                default: {
+                    echo " gäht nischt<br>";
+                }
+            }
         }
     }
 
+    echo "=", $result, "<br>";
     var_dump($operations, $numbers);
+    echo "<br>", getCoutofCalc($operations);
 ?>
-<!--
-/*function parse($input) {
-if (isset($_POST['input'])) {
-$input = $_POST['input'];
-}
-
-
-$numbers    = $this->multiexplode(array("(", ")", "+", "-", "*", "/", "sqrt2", "sqrt3"), $input);
-$operations = $this->multiexplode(array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0"), $input);
-
-$parsd = array(
-0 => $numbers,
-1 => $operations
-);
-
-return $parsd;
-}*/

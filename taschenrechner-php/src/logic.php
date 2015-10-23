@@ -31,51 +31,31 @@
         }
 
         public static function getInstance(){
-            private static $instance = null;
-
-            if(!$instance){
-                $instance = new self();
+            if(!self::$instance){
+                self::$instance = new self();
             }
-            return $instance;
+            return self::$instance;
         }
 
-        public function add($a, $b){
-            return $a + $b;
-        }
-    }
+        public function add($num, $count){
+            $i = 0;
+            $numsToCalc = null;
+            $result = null;
 
-/*    $result     = 0.00;
-    $i          = 0;
-    $c          = 0;
-
-    foreach($operations as $a){
-        if($a == "") {
-            unset($operations[$i]);
-            array_values($operations);
-        }
-
-        $i++;
-    }
-
-    $i = 0;
-    while (sizeof($operations) >= $c){
-        foreach($operations as $a) {
-            if ($a == "+") {
-                //$result = $numbers['0'] + $numbers['1'];
-
-
+            foreach($num as $key=>$value){
+                if($key <= $count){
+                    $numsToCalc[$i] = $value;
+                    $i++;
+                }
             }
 
-            if ($a == "-") { $result = $numbers['0'] - $numbers['1']; }
+            //All elements of the array add
+            foreach($numsToCalc as $key=>$val){
+                $result += $val;
+            }
 
-            $i++;
+            //var_dump($numsToCalc);
+            return $result;
         }
-
-        $c++;
     }
-
-    echo $result; // Is not jet a float !!!!
-    echo '<br>';
-
-    var_dump($numbers, $operations);*/
 ?>
