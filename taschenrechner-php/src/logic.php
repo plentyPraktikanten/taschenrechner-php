@@ -18,7 +18,7 @@
         }
 
         public function getNumber(){
-            return $this->number;
+            return $this->numbers;
         }
 
         public function setOperations($value){
@@ -29,11 +29,21 @@
             return $this->operations;
         }
 
+        public function getVarInstance(){
+            return $this->instance;
+        }
+
         public static function getInstance(){
-            if(!self::$instance){
-                self::$instance = new self();
+            private static $instance = null;
+
+            if(!$instance){
+                $instance = new self();
             }
-            return self::$instance;
+            return $instance;
+        }
+
+        public function add($a, $b){
+            return $a + $b;
         }
     }
 
