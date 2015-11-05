@@ -23,58 +23,50 @@
             return $a + $b;
         }
 
-        private function sub($num, $count){
-            $i = 0;
-            $numsToCalc = null;
-            $result = null;
-
-            foreach($num as $key=>$value){
-                if($key <= $count){
-                    $numsToCalc[$i] = $value;
-                    $i++;
-                }
-            }
-
-            //All elements of the array add
-            foreach($numsToCalc as $key=>$val){
-                $result -= $val;
-            }
-
-            //var_dump($numsToCalc);
-            return $result;
+        private function sub($a, $b){
+           return $a - $b;
         }
 
         private function multi($a, $b){
             return $a * $b;
         }
 
+        private function div($a, $b){
+            return $a / $b;
+        }
+
+        private function sqrt($a){
+            return bcsqrt($a, 5);
+        }
+
         public function Calculate($operations, $numbers){
             //TODO: write function that calculate
             // Multiplied first
-            while(isset($numbers[1])) {  // <- Hier hakt es noch!!!
+            foreach($operations as $key => $value){
+                if ($value == "*") {
+                    echo ",";
+                    $c = $key + 1;
+                    $numbers[$key] = Logic::multi($numbers[$key], $numbers[$c]);
+
+                    // remove number & array reorder
+                    unset($numbers[$c]);
+                    $numbers = array_values($numbers);
+
+                    // remove operator and reorder
+                    unset($operations[$key]);
+                    $operations = array_values($operations);
+
+                    break;
+                }
+            }
+
+            // than calculate the other
+            while(isset($numbers[1])) {
                 foreach ($operations as $key => $value) {
-                    if ($value == "*") {
-                        echo ",";
-                        $c = $key + 1;
-                        $numbers[$key] = Logic::multi($numbers[$key], $numbers[$c]);
-
-                        // remove number & array reorder
-                        unset($numbers[$c]);
-                        $numbers = array_values($numbers);
-
-                        // remove operator and reorder
-                        unset($operations[$key]);
-                        $operations = array_values($operations);
-
-                        break;
-                    }
                     switch ($value) {
                         case "+": {
-                            echo ".";
                             $c = $key + 1;
                             $numbers[$key] = Logic::add($numbers[$key], $numbers[$c]);
-                            echo "<br>";
-                            var_dump($numbers);
 
                             // remove number & array reorder
                             unset($numbers[$c]);
@@ -83,14 +75,37 @@
                             // remove operator and reorder
                             unset($operations[$key]);
                             $operations = array_values($operations);
-                        }
-                            break;
+                        }break;
+
+                        case "-": {
+                            $c = $key + 1;
+                            $numbers[$key] = Logic::sub($numbers[$key], $numbers[$c]);
+
+                            // remove number & array reorder
+                            unset($numbers[$c]);
+                            $numbers = array_values($numbers);
+
+                            // remove operator and reorder
+                            unset($operations[$key]);
+                            $operations = array_values($operations);
+                        }break;
+
+                        case "/": {
+                            $c = $key + 1;
+                            $numbers[$key] = Logic::div($numbers[$key], $numbers[$c]);
+
+                            // remove number & array reorder
+                            unset($numbers[$c]);
+                            $numbers = array_values($numbers);
+
+                            // remove operator and reorder
+                            unset($operations[$key]);
+                            $operations = array_values($operations);
+                        }break;
+
                     }
                 }
             }
-            echo "<br>";
-            var_dump($numbers, $operations);
-            echo "<br>";
             return $numbers[0];
         }
     }

@@ -72,8 +72,9 @@
 
     $numbers    = array_values($numbers);
     $operations = array_values($operations);
-
+/*
     //check for Brackets
+    // !!! before bracket has to be an " " !!!
     foreach($operations as $key=>$value){
         if($value = "("){
             //extract part in Brackets
@@ -97,15 +98,45 @@
                 }
             }
 
+            $bracketResult = Logic::getInstance()->Calculate($extractedBracketsOper, $extractedBracketsNums);
 
+            foreach($numbers as $key=>$value){
+                if($value == " "){
+                    $numbers[$key] = $bracketResult;
+
+                    $c = $key + 1;
+                    for($i = 0; $numbers[$c] != ""; $c++, $i++){
+                        unset($numbers[$c]);
+                    }
+                }
+
+                if($value == ""){
+                    unset($numbers[$key]);
+                }
+            }
+
+            foreach($operations as $key=>$value){
+                if($value == "("){
+                    $operations[$key] = null;
+
+                    $c = $key + 1;
+                    for($i = 0; $operations[$c] != ")"; $c++, $i++){
+                        unset($operations[$c]);
+                    }
+                }
+
+                if($value == ")"){
+                    unset($operations[$key]);
+                }
+            }
         }
-    }
+    }*/
 
     $result = Logic::getInstance()->Calculate($operations, $numbers);
 
     //debug outputs
-    echo "=", $result, "<br>";
+    echo " = ", $result, "<br>";
     var_dump($operations, $numbers);
     echo "<br>";
-    var_dump($extractedBracketsNums, $extractedBracketsOper)
+    var_dump($extractedBracketsNums, $extractedBracketsOper);
 ?>
