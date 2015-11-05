@@ -13,16 +13,45 @@
         return  $launch;
     }
 
+
     //do not work as it should
-    function getCoutOfCalc($operations){
-        $i = 0;
-        foreach($operations as $key=>$values){
-            if($values == "+"){
-                $i++;
-            }
-        }
-        return $i+1;
-    }
+//    function getCoutOfCalc($operations){
+//        $out = array("+" => 0, "-" => 0);
+//
+//        foreach($operations as $key=>$values){
+//            $c = $key-1;
+//
+//            if($values == $operations[$c]){
+//                switch($values){
+//                    case "+":{
+//                        echo "test";
+//                        $out["+"]++;
+//                    }break;
+//
+//                    case "-":{
+//                        echo "-";
+//                        $out["-"]++;
+//                    }break;
+//
+//                    default:{
+//                        echo "Meh";
+//                    }
+//                }
+//            } else if ($values != $operations[$c]){
+//                $out[$values]++;
+//                echo "bla";
+//            }
+//        }
+//
+//        foreach($out as $key2=>$values2){
+//            if($values2 != 0){
+//                $out[$key2]++;
+//                echo ".";
+//            }
+//        }
+//
+//        return $out;
+//    }
 
     if (isset($_POST['input'])){
         $input = $_POST['input'];
@@ -30,7 +59,7 @@
     echo $input;
 
     $numbers    = multiexplode(array("(", ")", "+", "-", "*", "/", "sqrt2", "sqrt3"), $input);
-    $operations = multiexplode(array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0"), $input);
+    $operations = multiexplode(array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " "), $input);
 
     $i = 0;
     foreach($operations as $a){
@@ -41,22 +70,42 @@
         $i++;
     }
 
-//    $operator = $operations[3];
-    foreach($operations as $key=>$value) {
-        if ($value == $operations[$key--]) {
-            switch ($value) {
-                case "+": {
-                    $result = Logic::getInstance()->add($numbers, getCoutofCalc($operations));
-                } break;
+    $numbers    = array_values($numbers);
+    $operations = array_values($operations);
 
-                default: {
-                    echo " gäht nischt<br>";
+    //check for Brackets
+    foreach($operations as $key=>$value){
+        if($value = "("){
+            //extract part in Brackets
+            //  Extract operations
+            foreach($operations as $key=>$value){
+                if($value == "("){
+                    $c = $key+1;
+                    for($i = 0; $operations[$c] != ")"; $c++, $i++) {
+                        $extractedBracketsOper[$i] = $operations[$c];
+                    }
                 }
             }
+
+            //  Extract nums
+            foreach($numbers as $key=>$value){
+                if($value == " "){
+                    $c = $key+1;
+                    for($i = 0; $numbers[$c] != ""; $c++, $i++){
+                        $extractedBracketsNums[$i] = $numbers[$c];
+                    }
+                }
+            }
+
+
         }
     }
 
+    $result = Logic::getInstance()->Calculate($operations, $numbers);
+
+    //debug outputs
     echo "=", $result, "<br>";
     var_dump($operations, $numbers);
-    echo "<br>", getCoutofCalc($operations);
+    echo "<br>";
+    var_dump($extractedBracketsNums, $extractedBracketsOper)
 ?>
