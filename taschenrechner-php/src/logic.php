@@ -39,6 +39,10 @@
             return bcsqrt($a, 5);
         }
 
+        private function pow($a, $b){
+            return pow($a, $b);
+        }
+
         public function Calculate($operations, $numbers){
             //TODO: write function that calculate
             // Multiplied first

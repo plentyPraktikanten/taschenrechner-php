@@ -13,52 +13,14 @@
         return  $launch;
     }
 
-
-    //do not work as it should
-//    function getCoutOfCalc($operations){
-//        $out = array("+" => 0, "-" => 0);
-//
-//        foreach($operations as $key=>$values){
-//            $c = $key-1;
-//
-//            if($values == $operations[$c]){
-//                switch($values){
-//                    case "+":{
-//                        echo "test";
-//                        $out["+"]++;
-//                    }break;
-//
-//                    case "-":{
-//                        echo "-";
-//                        $out["-"]++;
-//                    }break;
-//
-//                    default:{
-//                        echo "Meh";
-//                    }
-//                }
-//            } else if ($values != $operations[$c]){
-//                $out[$values]++;
-//                echo "bla";
-//            }
-//        }
-//
-//        foreach($out as $key2=>$values2){
-//            if($values2 != 0){
-//                $out[$key2]++;
-//                echo ".";
-//            }
-//        }
-//
-//        return $out;
-//    }
-
+    //get input from index.php
     if (isset($_POST['input'])){
         $input = $_POST['input'];
     }
     echo $input;
 
-    $numbers    = multiexplode(array("(", ")", "+", "-", "*", "/", "sqrt2", "sqrt3"), $input);
+    //Parse $input
+    $numbers    = multiexplode(array("(", ")", "+", "-", "*", "/", "sqrt2", "sqrt3", "pow"), $input);
     $operations = multiexplode(array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " "), $input);
 
     $i = 0;
@@ -67,16 +29,27 @@
             unset($operations[$i]);
             array_values($operations);
         }
+
+        if($a == "."){
+            unset($operations[$i]);
+            array_values($operations);
+        }
         $i++;
     }
 
+    //Reorder arrays. why? Because i can.
     $numbers    = array_values($numbers);
     $operations = array_values($operations);
+
+    //for debugging
+    echo "<br>";
+    var_dump($operations, $numbers);
 /*
     //check for Brackets
-    // !!! before bracket has to be an " " !!!
+    // !!! before bracket has to be an " " & after it!!!
     foreach($operations as $key=>$value){
         if($value = "("){
+
             //extract part in Brackets
             //  Extract operations
             foreach($operations as $key=>$value){
@@ -92,7 +65,7 @@
             foreach($numbers as $key=>$value){
                 if($value == " "){
                     $c = $key+1;
-                    for($i = 0; $numbers[$c] != ""; $c++, $i++){
+                    for($i = 0; $numbers[$c] != " "; $c++, $i++){
                         $extractedBracketsNums[$i] = $numbers[$c];
                     }
                 }
@@ -104,13 +77,12 @@
                 if($value == " "){
                     $numbers[$key] = $bracketResult;
 
-                    $c = $key + 1;
-                    for($i = 0; $numbers[$c] != ""; $c++, $i++){
+                    for($c = $key+1; $numbers[$c] != " "; $c++){
                         unset($numbers[$c]);
                     }
                 }
 
-                if($value == ""){
+                if($value == " "){
                     unset($numbers[$key]);
                 }
             }
@@ -119,8 +91,7 @@
                 if($value == "("){
                     $operations[$key] = null;
 
-                    $c = $key + 1;
-                    for($i = 0; $operations[$c] != ")"; $c++, $i++){
+                    for($c = $key+1; $operations[$c] != ")"; $c++){
                         unset($operations[$c]);
                     }
                 }
