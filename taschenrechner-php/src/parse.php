@@ -40,6 +40,7 @@
     }
     $operations = array_values($operations);
 
+
 //    $operator = $operations[3];
     foreach($operations as $key=>$value) {
         if ($value == $operations[$key--]) {
@@ -60,9 +61,7 @@
     $numbers    = array_values($numbers);
     $operations = array_values($operations);
 
-    //for debugging
-    echo "<br>";
-    var_dump($operations, $numbers);
+
 /*
     //check for Brackets
     // !!! before bracket has to be an " " & after it!!!
@@ -122,11 +121,8 @@
         }
     }*/
 
-    $result = Logic::getInstance()->Calculate($operations, $numbers);
+    //$result = Logic::getInstance()->Calculate($operations, $numbers);
 
-        echo "=", $result, "<br>";
-        var_dump($operations, $numbers);
-        echo "<br>", getCoutofCalc($operations);
     //debug outputs
     echo " = ", $result, "<br>";
     var_dump($operations, $numbers);
