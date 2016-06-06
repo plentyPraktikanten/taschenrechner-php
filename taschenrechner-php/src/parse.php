@@ -13,11 +13,8 @@
         return  $launch;
     }
 
-<<<<<<< HEAD
     //get input string from index.php
-=======
     //get input from index.php
->>>>>>> 311fcc5ea385d190718a5bec4e7d7f2d79172222
     if (isset($_POST['input'])){
         $input = $_POST['input'];
     }
@@ -43,18 +40,22 @@
     }
     $operations = array_values($operations);
 
-<<<<<<< HEAD
 //    $operator = $operations[3];
     foreach($operations as $key=>$value) {
         if ($value == $operations[$key--]) {
             switch ($value) {
                 case "+": {
                     $result = Logic::getInstance()->add($numbers, Logic::getInstance()->getCoutofCalc($operations));
-                } break;
+                }
+                    break;
 
                 default: {
                     echo "<b>Computer sagt Nein</b><br>";
-=======
+                }
+            }
+        }
+    }
+
     //Reorder arrays. why? Because i can.
     $numbers    = array_values($numbers);
     $operations = array_values($operations);
@@ -116,7 +117,6 @@
 
                 if($value == ")"){
                     unset($operations[$key]);
->>>>>>> 311fcc5ea385d190718a5bec4e7d7f2d79172222
                 }
             }
         }
@@ -124,15 +124,12 @@
 
     $result = Logic::getInstance()->Calculate($operations, $numbers);
 
-<<<<<<< HEAD
         echo "=", $result, "<br>";
         var_dump($operations, $numbers);
         echo "<br>", getCoutofCalc($operations);
-=======
     //debug outputs
     echo " = ", $result, "<br>";
     var_dump($operations, $numbers);
     echo "<br>";
     var_dump($extractedBracketsNums, $extractedBracketsOper);
 ?>
->>>>>>> 311fcc5ea385d190718a5bec4e7d7f2d79172222
