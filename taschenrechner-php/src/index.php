@@ -7,4 +7,5 @@
  */
 
     echo '<form action="parse.php" method="post"> <input type="text" name="input"> <input type="submit" value="="> </form>';
+    echo "Vor und Nach Klammern muss ein Leerzeichen sein sonst geht das nicht";
 ?>

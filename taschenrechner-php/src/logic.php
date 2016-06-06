@@ -50,4 +50,7 @@
             echo "<b>".++$i."</b>";
             return $i+1;
         }
+
+        // the bracket stuff
+
     }

@@ -47,8 +47,7 @@
             switch ($value) {
                 case "+": {
                     $result = Logic::getInstance()->add($numbers, Logic::getInstance()->getCoutofCalc($operations));
-                }
-                    break;
+                }break;
 
                 default: {
                     echo "<b>Computer sagt Nein</b><br>";
@@ -56,10 +55,6 @@
             }
         }
     }
-
-    //Reorder arrays. why? Because i can.
-    $numbers    = array_values($numbers);
-    $operations = array_values($operations);
 
 
 /*
@@ -127,5 +122,5 @@
     echo " = ", $result, "<br>";
     var_dump($operations, $numbers);
     echo "<br>";
-    var_dump($extractedBracketsNums, $extractedBracketsOper);
+    //var_dump($extractedBracketsNums, $extractedBracketsOper);
 ?>
