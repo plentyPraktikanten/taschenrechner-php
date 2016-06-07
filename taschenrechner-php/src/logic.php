@@ -18,15 +18,22 @@
             return self::$instance;
         }
 
+        public function debug_to_console($data, $object) {
+            if ( is_array( $data ) )
+                $output = "<script>console.log( 'Debug Objects".$object.": " . implode( ',', $data) . "' );</script>";
+            else
+                $output = "<script>console.log( 'Debug Objects".$object.": " . $data . "' );</script>";
+
+            echo $output;
+        }
+
         public function add($num, $count){
-            $i = 0;
             $numsToCalc = null;
             $result = null;
 
             foreach($num as $key=>$value){
                 if($key <= $count){
-                    $numsToCalc[$i] = $value;
-                    //$i++;
+                    $numsToCalc[] = $value;
                 }
             }
 
@@ -47,7 +54,50 @@
                     $i++;
                 }
             }
-            echo "<b>".++$i."</b>";
+            $this->debug_to_console(++$i);
             return $i+1;
+        }
+
+// the bracket stuff
+        public function extractBracketPart($numbers, $operations)
+        {
+            $this->extractBracketNumbers($numbers, InnerBracket);
+        }
+
+        //  Extract nums
+        public function extractBracketNumbers($numbers, $startAtInnerBracket){
+            foreach($numbers as $key=>$value){
+                if($key == $startAtInnerBracket) {
+                    if ($value == " ") {
+                        $c = ++$key;
+                        for ($i = 0; $numbers[$c] != " "; $c++, $i++) {
+                            $extractedBracketsNums[$i] = $numbers[$c];
+                        }
+                    }
+                }
+            }
+
+            var_dump($extractedBracketsNums);
+            return $extractedBracketsNums;
+        }
+
+        public function findInnerBracket($array){
+            $out = null;
+
+            foreach($array as $key=>$value){
+                if($value == "("){
+                    $c = ++$key;
+                    $out = $key;
+                    foreach($array as $key=>$value){
+                        if($key == $c){
+                            if($value == "("){
+                                echo "Test";
+                            } elseif($value == ")") {
+                                return $out+$key;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
