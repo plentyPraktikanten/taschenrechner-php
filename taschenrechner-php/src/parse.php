@@ -17,11 +17,15 @@
     if (isset($_POST['input'])){
         $input = $_POST['input'];
     }
-    echo $input;
+//    echo $input;
+    Logic::getInstance()->debug_to_console($numbers, " numbers b4 parse");
+    Logic::getInstance()->debug_to_console($operations, " ops b4 parse");
 
     //Parse $input
     $numbers    = multiexplode(array("(", ")", "+", "-", "*", "/", "sqrt2", "sqrt3", "pow"), $input);
     $operations = multiexplode(array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " "), $input);
+
+    //TODO: parse nummern mit vorzeichen
 
     // removes empty array elements
     $i = 0;
@@ -59,7 +63,7 @@
                     }break;
 
                     default: {
-                        echo "<b>Computer sagt Nein</b><br>";
+                        Logic::getInstance()->debug_to_console("Computer sagt Nein", " Error");
                     }
                 }
             }
@@ -130,5 +134,4 @@
     Logic::getInstance()->debug_to_console($result, " result");
     Logic::getInstance()->debug_to_console($operations, " operactions");
     Logic::getInstance()->debug_to_console($numbers, " numbers");
-    echo "<br>"
 ?>

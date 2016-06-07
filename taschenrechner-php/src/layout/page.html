@@ -4,7 +4,16 @@
         <meta charset="UTF-8">
         <title>Rechner</title>
         <style>
-            .button {
+            .middle{
+                padding: 18px;
+                display: table-cell;
+                vertical-align: middle;
+                border-style: solid;
+                border-width: 1px;
+                border-radius: 20px;
+                background-color: lightgray;
+            }
+            .button{
                 background-color: #d3d3d3;
                 border: none;
                 border-radius: 5px;
@@ -19,14 +28,19 @@
                 margin: 4px 2px;
                 cursor: pointer;
             }
+
+            .b1{
+                position: fixed;
+                height: 136px;
+            }
         </style>
     </head>
     <body>
-        <div class="outer" style="position: relative;">
-            <div class="middle" style="display: table-cell; vertical-align: middle; border-style: groove; background-color: lightgray">
+        <div class="outer">
+            <div class="middle">
                 <form action="../src/parse.php" method="post">
                     <input type="text" name="input" id="screen" style="border: solid; border-radius: 4px; border-width: 2px; width: 98%; height: 20px; font-size: 18px;"/>
-                    <div id="keypad" style="border: solid;  background-color: gray">
+                    <div id="keypad" style="border: solid; border-radius: 3px; background-color: gray;">
                         <button class="button">7</button>
                         <button class="button">8</button>
                         <button class="button">9</button>
@@ -37,7 +51,7 @@
                         <button class="button">5</button>
                         <button class="button">6</button>
                         <button class="button" value="*">x</button>
-                        <input  class="button" type="submit" value="=" />
+                        <input  class="button b1" type="submit" value="=" />
                         <br />
                         <button class="button">1</button>
                         <button class="button">2</button>
@@ -64,29 +78,25 @@
                             screen.value = null;
                         } else {
                             if (this.value == "BtnSign"){
-                                //TODO: the last entered number to minusnumber
+                                //TODO: fix bug(if more than one number)
                                 var array = screen.value.split("");
                                 var arrayLastElement = array[array.length-1];
 
                                 if(array[array.length-2] == "-"){
-                                    array[array.length-1] = "(";
+                                    array[array.length-1] = " (";
                                     array[array.length-1] += arrayLastElement-arrayLastElement*2;
-                                    array[array.length-1] += ")";
+                                    array[array.length-1] += ") ";
                                 } else {
                                     array[array.length-1] = arrayLastElement-arrayLastElement*2;
                                 }
 
                                 screen.value = array.join("");
-
-                                //console.log(result);
-
                             }else if (this.value) {
                                 screen.value = screen.value + this.value;
                             } else {
                                 screen.value = screen.value + this.innerHTML;
                             }
                         }
-                        // Try to comment line below to see what happens
                         return false;
                     };
                 }

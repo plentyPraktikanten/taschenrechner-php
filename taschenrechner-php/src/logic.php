@@ -19,12 +19,14 @@
         }
 
         public function debug_to_console($data, $object) {
-            if ( is_array( $data ) )
-                $output = "<script>console.log( 'Debug Objects".$object.": " . implode( ',', $data) . "' );</script>";
-            else
-                $output = "<script>console.log( 'Debug Objects".$object.": " . $data . "' );</script>";
+            if($data) {
+                if (is_array($data))
+                    $output = "<script>console.log( 'Debug Objects" . $object . ": " . implode(',', $data) . "' );</script>";
+                else
+                    $output = "<script>console.log( 'Debug Objects" . $object . ": " . $data . "' );</script>";
 
-            echo $output;
+                echo $output;
+            }
         }
 
         public function add($num, $count){
@@ -54,7 +56,7 @@
                     $i++;
                 }
             }
-            $this->debug_to_console(++$i);
+            $this->debug_to_console(++$i, " count of calc");
             return $i+1;
         }
 
