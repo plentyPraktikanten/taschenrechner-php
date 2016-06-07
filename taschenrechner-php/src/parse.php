@@ -13,7 +13,6 @@
         return  $launch;
     }
 
-    //get input string from index.php
     //get input from index.php
     if (isset($_POST['input'])){
         $input = $_POST['input'];
@@ -41,16 +40,27 @@
     $operations = array_values($operations);
 
 
-//    $operator = $operations[3];
-    foreach($operations as $key=>$value) {
-        if ($value == $operations[$key--]) {
-            switch ($value) {
-                case "+": {
-                    $result = Logic::getInstance()->add($numbers, Logic::getInstance()->getCoutofCalc($operations));
-                }break;
+    //check 4 brackets
+    foreach($operations as $key=>$value){
+        if($value == "("){
+            $isBracket = true;
+        }
+    }
+    if($isBracket){
+        //extract part in brackets
+        //Logic::getInstance()->extractBracketNumbers($numbers);
+        var_dump(Logic::getInstance()->findInnerBracket($operations));
+    } else {
+        foreach ($operations as $key => $value) {
+            if ($value == $operations[$key--]) {
+                switch ($value) {
+                    case "+": {
+                        $result = Logic::getInstance()->add($numbers, Logic::getInstance()->getCoutofCalc($operations));
+                    }break;
 
-                default: {
-                    echo "<b>Computer sagt Nein</b><br>";
+                    default: {
+                        echo "<b>Computer sagt Nein</b><br>";
+                    }
                 }
             }
         }
@@ -116,11 +126,7 @@
         }
     }*/
 
-    //$result = Logic::getInstance()->Calculate($operations, $numbers);
-
-    //debug outputs
     echo " = ", $result, "<br>";
     var_dump($operations, $numbers);
     echo "<br>";
-    //var_dump($extractedBracketsNums, $extractedBracketsOper);
 ?>
