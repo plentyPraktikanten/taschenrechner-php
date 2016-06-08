@@ -2,6 +2,11 @@ window.onload = function () {
     var screen  = document.getElementById('screen'),
         keypad  = document.getElementById('keypad'),
         buttons = keypad.getElementsByTagName('button');
+
+    //alert(result);
+    //if (typeof result !== 'undefined') {
+    //    alert("Test");
+    //}
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].onclick = function () {
             if(this.value == "clear") {

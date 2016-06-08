@@ -6,6 +6,8 @@
  * Time: 11:09
  */
     require_once('logic.php');
+    session_start();
+    $_SESSION['result'] = null;
 
 
     //get input from index.php
@@ -22,6 +24,9 @@
             if(is_numeric($input[1][--$key])){
                 end($input[2]);                         // move the internal pointer to the end of the array
                 $input[2][key($input[2])] .= $value;    // fetches the key of the element pointed to by the internal pointer
+            } elseif(strpos($input[2][key($input[2])], '.') - strlen($input[2][key($input[2])]) == -1 && $key-1 > 0){
+                echo "Test";
+                $input[2][key($input[2])] .= $value;
             } else {
                 end($input[2]);
                 if($input[2][key($input[2])] == "-") {
@@ -43,10 +48,19 @@
                     }
                 }break;
 
-                //TODO: add cases for "*" and  "/" below here
+                case ".": {
+                    if(is_numeric($input[1][--$key])){
+                        end($input[2]);
+                        $input[2][key($input[2])] .= $value;
+                    }
+                }break;
+
+                //TODO: add cases for "*", "/", "(" and so on below here
             }
         }
     }
+
+    //echo strpos($input[2][key($input[2])], '.')-strlen($input[2][key($input[2])]);
 
     //TODO: change variables so that they are not twice there
     $operations = $input[3];
@@ -74,6 +88,7 @@
                     }break;
 
                     default: {
+                        //TODO: build an actual error message
                         Logic::getInstance()->debug_to_console("Computer sagt Nein", " Error");
                     }
                 }
@@ -81,7 +96,13 @@
         }
     }
 
-    //TODO: make an nice output (like: 1+1=2 or 15+-154=139)
+    $output[0] = $result;
+    $output[1] = $input[0];
 
+    session_start();
+    $_SESSION['result'] = $output;
 
+    //var_dump($input, $result, $operations, $numbers);
+
+    header("Location: http://localhost:8888/taschenrechner-php/src/");
 ?>

@@ -39,10 +39,6 @@
                     array_values($array);
                 }
 
-                if($a == "."){
-                    unset($array[$i]);
-                    array_values($array);
-                }
                 $i++;
             }
             $array = array_values($array);
@@ -87,7 +83,7 @@
                     $i++;
                 }
             }
-            $this->debug_to_console(++$i, " count of calc");
+            //$this->debug_to_console(++$i, " count of calc");
             return $i+1;
         }
 
@@ -110,7 +106,7 @@
                 }
             }
 
-            var_dump($extractedBracketsNums);
+            //var_dump($extractedBracketsNums);
             return $extractedBracketsNums;
         }
 
