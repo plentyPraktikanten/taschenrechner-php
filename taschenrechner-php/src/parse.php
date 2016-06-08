@@ -7,41 +7,35 @@
  */
     require_once('logic.php');
 
-    function multiexplode ($delimiters,$string) {
-        $ready  = str_replace($delimiters,    $delimiters[0], $string);
-        $launch = explode    ($delimiters[0], $ready);
-        return  $launch;
-    }
+
 
     //get input from index.php
     if (isset($_POST['input'])){
         $input = $_POST['input'];
     }
+
 //    echo $input;
     Logic::getInstance()->debug_to_console($numbers, " numbers b4 parse");
+    echo "test";
     Logic::getInstance()->debug_to_console($operations, " ops b4 parse");
 
-    //Parse $input
+/**
+ *Parse $input
+ */
+
+
+//TODO: parse nummern mit vorzeichen
+
     $numbers    = multiexplode(array("(", ")", "+", "-", "*", "/", "sqrt2", "sqrt3", "pow"), $input);
     $operations = multiexplode(array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " "), $input);
 
-    //TODO: parse nummern mit vorzeichen
+    var_dump($input, $numbers, $operations);
+    echo "<br>";
 
-    // removes empty array elements
-    $i = 0;
-    foreach($operations as $a){
-        if($a == "") {
-            unset($operations[$i]);
-            array_values($operations);
-        }
 
-        if($a == "."){
-            unset($operations[$i]);
-            array_values($operations);
-        }
-        $i++;
-    }
-    $operations = array_values($operations);
+// removes empty array elements
+    $operations = Logic::getInstance()->cleanUpArray($operations);
+    $numbers    = Logic::getInstance()->cleanUpArray($numbers);
 
 
     //check 4 brackets
@@ -51,9 +45,7 @@
         }
     }
     if($isBracket){
-        //extract part in brackets
-        //Logic::getInstance()->extractBracketNumbers($numbers);
-        var_dump(Logic::getInstance()->findInnerBracket($operations));
+        $result = "This function is not jet supported";
     } else {
         foreach ($operations as $key => $value) {
             if ($value == $operations[$key--]) {
@@ -131,7 +123,10 @@
     }*/
 
     //echo " = ", $result, "<br>";
-    Logic::getInstance()->debug_to_console($result, " result");
-    Logic::getInstance()->debug_to_console($operations, " operactions");
-    Logic::getInstance()->debug_to_console($numbers, " numbers");
+    var_dump($numbers);
+    var_dump($operations);
+    var_dump($result);
+//    Logic::getInstance()->debug_to_console($result,     " result");
+//    Logic::getInstance()->debug_to_console($operations, " operactions");
+//    Logic::getInstance()->debug_to_console($numbers,    " numbers");
 ?>

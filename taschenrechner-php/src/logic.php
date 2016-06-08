@@ -17,7 +17,9 @@
             }
             return self::$instance;
         }
-
+/**
+ *  some usual function
+ */
         public function debug_to_console($data, $object) {
             if($data) {
                 if (is_array($data))
@@ -28,6 +30,35 @@
                 echo $output;
             }
         }
+
+        public function cleanUpArray($array){
+            $i = 0;
+            foreach($array as $a){
+                if($a == "") {
+                    unset($array[$i]);
+                    array_values($array);
+                }
+
+                if($a == "."){
+                    unset($array[$i]);
+                    array_values($array);
+                }
+                $i++;
+            }
+            $array = array_values($array);
+
+            return $array;
+        }
+
+        public function multiexplode ($delimiters,$string) {
+            $ready  = str_replace($delimiters,    $delimiters[0], $string);
+            $launch = explode    ($delimiters[0], $ready);
+            return  $launch;
+        }
+
+/**
+ *  The main mathematical functions
+ */
 
         public function add($num, $count){
             $numsToCalc = null;
