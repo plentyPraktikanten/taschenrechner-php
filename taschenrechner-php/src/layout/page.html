@@ -3,54 +3,17 @@
     <head lang="de">
         <meta charset="UTF-8">
         <title>Rechner</title>
-        <style>
-            .middle{
-                padding: 18px;
-                display: table-cell;
-                vertical-align: middle;
-                border-style: solid;
-                border-width: 1px;
-                border-radius: 20px;
-                background-color: lightgray;
-            }
-            .button{
-                background-color: #d3d3d3;
-                border: none;
-                border-radius: 5px;
-                color: #252d2b;
-                width:  50px;
-                height: 40px;
-                /*padding: 15px 32px;*/
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-            }
-
-            .b1{
-                position: fixed;
-                height: 136px;
-            }
-
-            .showCalc{
-                position: static;
-                width: 100%;
-                height: 75px;
-                background-color: #000000;
-                color: #fff;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="layout/stylesheet.css">
     </head>
     <body>
+        <script src="layout/keypadButtonPressLogic.js"></script>
         <div class="outer">
             <div class="middle">
                 <div class="showCalc">
                 </div>
                 <form action="../src/parse.php" method="post">
-                    <input type="text" name="input" id="screen" style="border: solid; border-radius: 4px; border-width: 2px; width: 98%; height: 20px; font-size: 18px;"/>
-                    <div id="keypad" style="border: solid; border-radius: 3px; background-color: gray;">
+                    <input type="text" name="input" id="screen"/>
+                    <div id="keypad">
                         <button class="button">7</button>
                         <button class="button">8</button>
                         <button class="button">9</button>
@@ -76,42 +39,6 @@
                 </form>
             </div>
         </div>
-
-        <script>
-            window.onload = function () {
-                var screen  = document.getElementById('screen'),
-                        keypad  = document.getElementById('keypad'),
-                        buttons = keypad.getElementsByTagName('button');
-                for (var i = 0; i < buttons.length; i++) {
-                    buttons[i].onclick = function () {
-                        if(this.value == "clear") {
-                            screen.value = null;
-                        } else {
-                            if (this.value == "BtnSign"){
-                                //TODO: fix bug(if more than one number)
-                                var array = screen.value.split("");
-                                var arrayLastElement = array[array.length-1];
-
-                                if(array[array.length-2] == "-"){
-                                    array[array.length-1] = " (";
-                                    array[array.length-1] += arrayLastElement-arrayLastElement*2;
-                                    array[array.length-1] += ") ";
-                                } else {
-                                    array[array.length-1] = arrayLastElement-arrayLastElement*2;
-                                }
-
-                                screen.value = array.join("");
-                            }else if (this.value) {
-                                screen.value = screen.value + this.value;
-                            } else {
-                                screen.value = screen.value + this.innerHTML;
-                            }
-                        }
-                        return false;
-                    };
-                }
-            };
-        </script>
     </body>
 </html>
 

@@ -8,15 +8,12 @@
     require_once('logic.php');
 
 
-
     //get input from index.php
     if (isset($_POST['input'])){
         $input[0] = $_POST['input'];
     }
 
-/**
- *Parse $input
- */
+//  parse input
 
     $input[1] = str_split($input[0]);
 
@@ -45,10 +42,13 @@
                         $input[2][1+key($input[2])] = $value;
                     }
                 }break;
+
+                //TODO: add cases for "*" and  "/" below here
             }
         }
     }
 
+    //TODO: change variables so that they are not twice there
     $operations = $input[3];
     $numbers    = $input[2];
 
@@ -81,13 +81,7 @@
         }
     }
 
+    //TODO: make an nice output (like: 1+1=2 or 15+-154=139)
 
 
-    //echo " = ", $result, "<br>";
-    var_dump($numbers);
-    var_dump($operations);
-    var_dump($result);
-//    Logic::getInstance()->debug_to_console($result,     " result");
-//    Logic::getInstance()->debug_to_console($operations, " operactions");
-//    Logic::getInstance()->debug_to_console($numbers,    " numbers");
 ?>
