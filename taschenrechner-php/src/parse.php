@@ -11,31 +11,50 @@
 
     //get input from index.php
     if (isset($_POST['input'])){
-        $input = $_POST['input'];
+        $input[0] = $_POST['input'];
     }
-
-//    echo $input;
-    Logic::getInstance()->debug_to_console($numbers, " numbers b4 parse");
-    echo "test";
-    Logic::getInstance()->debug_to_console($operations, " ops b4 parse");
 
 /**
  *Parse $input
  */
 
+    $input[1] = str_split($input[0]);
 
-//TODO: parse nummern mit vorzeichen
+    foreach($input[1] as $key => $value) {
+        if(is_numeric($value)) {
+            if(is_numeric($input[1][--$key])){
+                end($input[2]);                         // move the internal pointer to the end of the array
+                $input[2][key($input[2])] .= $value;    // fetches the key of the element pointed to by the internal pointer
+            } else {
+                end($input[2]);
+                if($input[2][key($input[2])] == "-") {
+                    $input[2][key($input[2])] .= $value;
+                } else {
+                    $input[2][] = $value;
+                }
+            }
+        } else {
+            switch($value){
+                case "+": {
+                    $input[3][] = $value;
+                }break;
 
-    $numbers    = multiexplode(array("(", ")", "+", "-", "*", "/", "sqrt2", "sqrt3", "pow"), $input);
-    $operations = multiexplode(array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " "), $input);
+                case "-": {
+                    if($input[1][--$key] == "+" || $input[1][--$key] == "*" || $input[1][--$key] == "/"){
+                        end($input[2]);
+                        $input[2][1+key($input[2])] = $value;
+                    }
+                }break;
+            }
+        }
+    }
 
-    var_dump($input, $numbers, $operations);
-    echo "<br>";
+    $operations = $input[3];
+    $numbers    = $input[2];
 
-
-// removes empty array elements
-    $operations = Logic::getInstance()->cleanUpArray($operations);
-    $numbers    = Logic::getInstance()->cleanUpArray($numbers);
+// cleanup array (actual needed?)
+    $operations = Logic::getInstance()->cleanupArray($operations);
+    $numbers    = Logic::getInstance()->cleanupArray($numbers);
 
 
     //check 4 brackets
@@ -63,64 +82,6 @@
     }
 
 
-/*
-    //check for Brackets
-    // !!! before bracket has to be an " " & after it!!!
-    foreach($operations as $key=>$value){
-        if($value = "("){
-
-            //extract part in Brackets
-            //  Extract operations
-            foreach($operations as $key=>$value){
-                if($value == "("){
-                    $c = $key+1;
-                    for($i = 0; $operations[$c] != ")"; $c++, $i++) {
-                        $extractedBracketsOper[$i] = $operations[$c];
-                    }
-                }
-            }
-
-            //  Extract nums
-            foreach($numbers as $key=>$value){
-                if($value == " "){
-                    $c = $key+1;
-                    for($i = 0; $numbers[$c] != " "; $c++, $i++){
-                        $extractedBracketsNums[$i] = $numbers[$c];
-                    }
-                }
-            }
-
-            $bracketResult = Logic::getInstance()->Calculate($extractedBracketsOper, $extractedBracketsNums);
-
-            foreach($numbers as $key=>$value){
-                if($value == " "){
-                    $numbers[$key] = $bracketResult;
-
-                    for($c = $key+1; $numbers[$c] != " "; $c++){
-                        unset($numbers[$c]);
-                    }
-                }
-
-                if($value == " "){
-                    unset($numbers[$key]);
-                }
-            }
-
-            foreach($operations as $key=>$value){
-                if($value == "("){
-                    $operations[$key] = null;
-
-                    for($c = $key+1; $operations[$c] != ")"; $c++){
-                        unset($operations[$c]);
-                    }
-                }
-
-                if($value == ")"){
-                    unset($operations[$key]);
-                }
-            }
-        }
-    }*/
 
     //echo " = ", $result, "<br>";
     var_dump($numbers);

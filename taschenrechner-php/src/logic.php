@@ -31,7 +31,7 @@
             }
         }
 
-        public function cleanUpArray($array){
+        public function cleanupArray($array){
             $i = 0;
             foreach($array as $a){
                 if($a == "") {
