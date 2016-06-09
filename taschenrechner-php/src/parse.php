@@ -6,6 +6,7 @@
  * Time: 11:09
  */
     require_once('logic.php');
+
     session_start();
     $_SESSION['result'] = null;
 
@@ -22,10 +23,9 @@
     foreach($input[1] as $key => $value) {
         if(is_numeric($value)) {
             if(is_numeric($input[1][--$key])){
-                end($input[2]);                         // move the internal pointer to the end of the array
-                $input[2][key($input[2])] .= $value;    // fetches the key of the element pointed to by the internal pointer
-            } elseif(strpos($input[2][key($input[2])], '.') - strlen($input[2][key($input[2])]) == -1 && $key-1 > 0){
-                echo "Test";
+                end($input[2]);
+                $input[2][key($input[2])] .= $value;
+            } elseif(Logic::getInstance()->checkArrayForComma($input[1]) && strpos($input[2][key($input[2])], '.') - strlen($input[2][key($input[2])]) == -1 && $key-1 > 0){
                 $input[2][key($input[2])] .= $value;
             } else {
                 end($input[2]);
@@ -37,12 +37,16 @@
             }
         } else {
             switch($value){
-                case "+": {
+                case "+":
+                case "*":
+                case "/":
+                case "(":
+                case ")":{
                     $input[3][] = $value;
                 }break;
 
                 case "-": {
-                    if($input[1][--$key] == "+" || $input[1][--$key] == "*" || $input[1][--$key] == "/"){
+                    if($input[1][--$key] == "+" || $input[1][--$key] == "*" || $input[1][--$key] == "/" || $input[1][--$key] == null){
                         end($input[2]);
                         $input[2][1+key($input[2])] = $value;
                     }
@@ -54,8 +58,6 @@
                         $input[2][key($input[2])] .= $value;
                     }
                 }break;
-
-                //TODO: add cases for "*", "/", "(" and so on below here
             }
         }
     }
@@ -70,6 +72,9 @@
     $operations = Logic::getInstance()->cleanupArray($operations);
     $numbers    = Logic::getInstance()->cleanupArray($numbers);
 
+    /***
+     * Calculate
+     */
 
     //check 4 brackets
     foreach($operations as $key=>$value){
@@ -87,6 +92,12 @@
                         $result = Logic::getInstance()->add($numbers, Logic::getInstance()->getCoutofCalc($operations));
                     }break;
 
+                    case "*":
+                    case "/":
+                    case "-":{
+                        $result = "function not yet supported";
+                    }break;
+
                     default: {
                         //TODO: build an actual error message
                         Logic::getInstance()->debug_to_console("Computer sagt Nein", " Error");
@@ -102,7 +113,7 @@
     session_start();
     $_SESSION['result'] = $output;
 
-    //var_dump($input, $result, $operations, $numbers);
+    var_dump($input, $result, $operations, $numbers);
 
-    header("Location: http://localhost:8888/taschenrechner-php/src/");
+//    header("Location: http://localhost:8888/taschenrechner-php/src/");
 ?>

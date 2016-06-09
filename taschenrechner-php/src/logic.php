@@ -52,6 +52,22 @@
             return  $launch;
         }
 
+        public function checkArrayForComma($array){
+            foreach($array as $key=>$value){
+                if($value == "."){
+                    $result = true;
+                } else {
+                    $result = false;
+                }
+            }
+
+            if($result){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
 /**
  *  The main mathematical functions
  */
