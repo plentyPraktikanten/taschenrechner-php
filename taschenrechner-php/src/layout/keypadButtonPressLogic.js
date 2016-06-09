@@ -3,10 +3,6 @@ window.onload = function () {
         keypad  = document.getElementById('keypad'),
         buttons = keypad.getElementsByTagName('button');
 
-    //alert(result);
-    //if (typeof result !== 'undefined') {
-    //    alert("Test");
-    //}
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].onclick = function () {
             if(this.value == "clear") {
@@ -15,6 +11,8 @@ window.onload = function () {
                 if (this.value == "BtnSign"){
                     //TODO: fix bug(if more than one number)
                     var array = screen.value.split("");
+                    console.log(array);
+
                     var arrayLastElement = array[array.length-1];
 
                     if(array[array.length-2] == "-"){

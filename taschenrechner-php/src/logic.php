@@ -104,6 +104,7 @@
         }
 
 // the bracket stuff
+/*
         public function extractBracketPart($numbers, $operations)
         {
             $this->extractBracketNumbers($numbers, InnerBracket);
@@ -145,4 +146,6 @@
                 }
             }
         }
+*/
     }
+?>

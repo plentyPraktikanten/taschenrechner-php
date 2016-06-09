@@ -113,7 +113,7 @@
     session_start();
     $_SESSION['result'] = $output;
 
-    var_dump($input, $result, $operations, $numbers);
+//    var_dump($input, $result, $operations, $numbers);
 
-//    header("Location: http://localhost:8888/taschenrechner-php/src/");
+    header("Location: http://localhost:8888/taschenrechner-php/src/");
 ?>
