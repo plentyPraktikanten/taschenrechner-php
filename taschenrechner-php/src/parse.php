@@ -77,45 +77,48 @@
     /***
      * Calculate
      */
-    
+
+    $clipboard[0] = $operations;
+    $clipboard[1] = $numbers;
+
     //check for brackets
-    foreach($operations as $key=>$value){
+    /*foreach($operations as $key=>$value){
         if($value == "("){
             $isBracket = true;
         }
     }
     if($isBracket){
         $result = "function not yet supported";
-    } else {
-        foreach ($operations as $key => $value) {
-            if ($value == $operations[$key--]) {
-                switch ($value) {
-                    case "+": {
-                        $result = Logic::getInstance()->add($numbers, Logic::getInstance()->getCoutofCalc($operations));
-                    }break;
+    } else {*/
+    $i = 0;
+    while (count($clipboard[0]) != $i) {
+        if($clipboard[0][$i] == "*" || $clipboard[0][$i] == "/"){
+            $result = "function not yet supported";
+        } else {
+            switch($clipboard[0][0]){
+                case "+":{
+                    $clipboard[1][0] = Logic::getInstance()->add($clipboard[1][0], $clipboard[1][1]);
+                }break;
 
-                    case "*":
-                    case "/":
-                    case "-":{
-                        $result = "function not yet supported";
-                    }break;
-
-                    default: {
-                        //TODO: build an actual error message
-                        $result = "synErr";
-                    }
-                }
+                case "-":{
+                    $clipboard[1][0] = Logic::getInstance()->sub($clipboard[1][0], $clipboard[1][1]);
+                }break;
             }
         }
+        Logic::getInstance()->unsetAndReorderArray($clipboard);
+        ++$i;
     }
 
-    $output[0] = $result;
-    $output[1] = $input[0];
+    print_r($clipboard);
+    //}
+
+    $output[0] = $result;   // result
+    $output[1] = $input[0]; // calculation
 
     session_start();
     $_SESSION['result'] = $output;
 
-    var_dump($input, $result, $operations, $numbers);
+    var_dump($input, $clipboard); //$result, $operations, $numbers,
 
 //    header("Location: http://localhost:8888/taschenrechner-php/src/");
 ?>

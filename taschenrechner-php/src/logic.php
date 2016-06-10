@@ -66,26 +66,42 @@
             }
         }
 
+        public function unsetAndReorderArray($array){
+            unset($array[0][0]);
+            unset($array[1][1]);
+            $array[0] = array_values($array[0]);
+            $array[1] = array_values($array[1]);
+
+            print_r($array);
+            return $array;
+        }
+
 /**
  *  The main mathematical functions
  */
 
-        public function add($num, $count){
-            $numsToCalc = null;
-            $result = null;
+        public function add($num1, $num2 /*$count*/){
+//            $numsToCalc = null;
+//            $result = null;
+//
+//            foreach($num as $key=>$value){
+//                if($key <= $count){
+//                    $numsToCalc[] = $value;
+//                }
+//            }
+//
+//            //All elements of the array add
+//            foreach($numsToCalc as $key=>$val){
+//                $result += $val;
+//            }
 
-            foreach($num as $key=>$value){
-                if($key <= $count){
-                    $numsToCalc[] = $value;
-                }
-            }
+//            return $result;
 
-            //All elements of the array add
-            foreach($numsToCalc as $key=>$val){
-                $result += $val;
-            }
+            return $num1 + $num2;
+        }
 
-            return $result;
+        public function sub($num1, $num2){
+            return $num1 - $num2;
         }
 
         //do not work as it should
