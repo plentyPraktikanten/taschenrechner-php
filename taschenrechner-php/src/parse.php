@@ -46,9 +46,11 @@
                 }break;
 
                 case "-": {
-                    if($input[1][--$key] == "+" || $input[1][--$key] == "*" || $input[1][--$key] == "/" || $input[1][--$key] == null){
+                    if(($input[1][--$key] == "+" || $input[1][--$key] == "*" || $input[1][--$key] == "/" || $input[1][--$key] == null) && is_numeric($input[1][--$key])){
                         end($input[2]);
                         $input[2][1+key($input[2])] = $value;
+                    } else {
+                        $input[3][] = $value;
                     }
                 }break;
 
@@ -75,15 +77,15 @@
     /***
      * Calculate
      */
-
-    //check 4 brackets
+    
+    //check for brackets
     foreach($operations as $key=>$value){
         if($value == "("){
             $isBracket = true;
         }
     }
     if($isBracket){
-        $result = "This function is not jet supported";
+        $result = "function not yet supported";
     } else {
         foreach ($operations as $key => $value) {
             if ($value == $operations[$key--]) {
@@ -100,7 +102,7 @@
 
                     default: {
                         //TODO: build an actual error message
-                        Logic::getInstance()->debug_to_console("Computer sagt Nein", " Error");
+                        $result = "synErr";
                     }
                 }
             }
@@ -113,7 +115,7 @@
     session_start();
     $_SESSION['result'] = $output;
 
-//    var_dump($input, $result, $operations, $numbers);
+    var_dump($input, $result, $operations, $numbers);
 
-    header("Location: http://localhost:8888/taschenrechner-php/src/");
+//    header("Location: http://localhost:8888/taschenrechner-php/src/");
 ?>

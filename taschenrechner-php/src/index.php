@@ -5,6 +5,8 @@
  * Date: 19.10.15
  * Time: 14:57
  */
+    require_once("makeShowCalc.php");
+
     session_start();
     $content = '<!DOCTYPE html>
     <html>
@@ -18,7 +20,7 @@
     <div class="outer">
         <div class="middle">
             <div class="showCalc">
-                ###PLACEHOLDER###
+                '.showCalc($_SESSION["result"]).'
             </div>
             <form action="../src/parse.php" method="post">
                 <input type="text" value="'.$_SESSION["result"][0].'" name="input" id="screen"/>

@@ -6,8 +6,6 @@
  * Time: 14:35
  */
 
-    //floatval()  <- könnte noch nützlich sein
-
     class Logic {
         private static $instance = null;
 
